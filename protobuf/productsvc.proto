@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option go_package = "github.com/DarkReduX/productservice/protobuf";
+
+
+import "google/protobuf/empty.proto";
+
+service ProductService {
+  rpc Create(CreateRequest) returns (Product);
+  rpc Get(GetRequest) returns (Product);
+  rpc List(google.protobuf.Empty) returns (ListResponse);
+  rpc ListByUser(ListByUserRequest) returns (ListResponse);
+  rpc Update(Product) returns (Product);
+  rpc Delete(DeleteRequest) returns(google.protobuf.Empty);
+}
+
+message CreateRequest {
+  string user_id = 1;
+  string name = 2;
+  string description = 3;
+  uint32 price = 4;
+  uint32 count = 5;
+}
+
+message GetRequest {
+  string id = 1;
+}
+
+message ListResponse {
+  repeated Product products = 1;
+}
+
+message ListByUserRequest {
+  string user_id = 1;
+}
+
+message DeleteRequest {
+  string id = 1;
+  string user_id = 2;
+}
+
+message Product {
+  string id = 1;
+  string user_id = 2;
+  string name = 3;
+  string description = 4;
+  uint32 price = 5;
+}
